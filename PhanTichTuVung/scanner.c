@@ -19,6 +19,8 @@ extern int currentChar;
 
 extern CharCode charCodes[];
 
+char identifierTempor[100];
+
 /***************************************************************/
 
 void skipBlank() {										// --- Ham bo qua dau cach ---
@@ -28,11 +30,18 @@ void skipBlank() {										// --- Ham bo qua dau cach ---
 }
 
 void skipComment() {									// --- Ham bo qua comment ---
-	while(charCodes[currentChar] != CHAR_RPAR){
-		readChar();
-		if(currentChar == EOF){
-			error(ERR_ENDOFCOMMENT, lineNo, colNo);
+	if(charCodes[currentChar] == CHAR_TIMES){
+		while(charCodes[currentChar] != CHAR_RPAR){
+			readChar();
+			if(currentChar == EOF){
+				error(ERR_ENDOFCOMMENT, lineNo, colNo);
+			}
 		}
+	}
+	else{
+		do{
+			readChar();
+		}while(currentChar != '\n');
 	}
 	readChar();
 }
@@ -41,21 +50,25 @@ Token* readIdentKeyword(void) {							// --- Ham doc identifier ---
 	Token *token;
 	int i = 0;
 	token = makeToken(TK_IDENT,lineNo,colNo);
+	identifierTempor[0] = '\0';
 	while(charCodes[currentChar] == CHAR_DIGIT || charCodes[currentChar] == CHAR_LETTER){
 		if(i == 100){
 			error(ERR_IDENTTOOLONG,lineNo,colNo);
 			return NULL;
 		}
+		identifierTempor[i] = currentChar;
 		token->string[i++] = currentChar;
 		readChar();
 	}
+	identifierTempor[i] = '\0';
 	token->string[i] = '\0';
 	TokenType tokenType = checkKeyword(token->string);
-	if(tokenType >= KW_PROGRAM && tokenType <= KW_TO){
+	if(tokenType >= KW_PROGRAM && tokenType <= KW_UNTIL){
 		token->tokenType = tokenType;
 	}
-	if(token->tokenType != TK_NONE && token->tokenType != TK_IDENT && token->tokenType != TK_NUMBER && token->tokenType != TK_CHAR && token->tokenType != TK_EOF){
+	if(token->tokenType != TK_NONE && token->tokenType != TK_IDENT && token->tokenType != TK_NUMBER && token->tokenType != TK_CHAR && token->tokenType != TK_EOF && token->tokenType != TK_STRING){
 		token->string[0] = '\0';
+		identifierTempor[0] = '\0';
 	}
 	return token;
 }
@@ -82,6 +95,18 @@ Token* readConstChar() {
 	if(charCodes[readChar()] != CHAR_SINGLEQUOTE){
 		error(ERR_INVALIDCHARCONSTANT, ln, cn);
 	}
+	readChar();
+	return token;
+}
+
+Token* readConstString(){
+	Token *token;
+	token = makeToken(TK_STRING, lineNo, colNo);
+	int i = 0;
+	while(charCodes[readChar()] != CHAR_DOUBLEQUOTE){
+		token->string[i++] = currentChar;
+	}
+	token->string[i] = '\0';
 	readChar();
 	return token;
 }
@@ -124,6 +149,14 @@ Token* getToken() {
 			readChar();
 			return token;
 		}
+		case CHAR_DOUBLEQUOTE:{
+			if(strcmp(identifierTempor,"WRITEC") == 0){
+				token = makeToken(TK_NONE, lineNo, colNo);
+				error(ERR_INVALIDSYMBOL, lineNo, colNo);
+				return token;
+			}
+			return readConstString();
+		}
 		case CHAR_MINUS: {
 			token = makeToken(SB_MINUS, lineNo, colNo);
 			readChar();
@@ -164,6 +197,17 @@ Token* getToken() {
 		case CHAR_SINGLEQUOTE:{
 			return readConstChar();
 		}
+		case CHAR_SLASH:{
+			token = makeToken(SB_SLASH, lineNo, colNo);
+			if(charCodes[readChar()] == CHAR_SLASH){
+				free(token);
+				skipComment();
+				return getToken();
+			}
+			else{
+				return token;
+			}
+		}
 		case CHAR_COMMA: {
 			token = makeToken(SB_COMMA, lineNo, colNo);
 			readChar();
@@ -200,9 +244,13 @@ void printToken(Token *token) {
 		case TK_IDENT: printf("TK_IDENT(%s)\n", token->string); break;
 		case TK_NUMBER: printf("TK_NUMBER(%d)\n", token->value); break;
 		case TK_CHAR: printf("TK_CHAR(\'%s\')\n", token->string); break;
+		case TK_STRING: printf("TK_STRING(\"%s\")\n",token->string); break;
 		case TK_EOF: printf("TK_EOF\n"); break;
 
+		case KW_REPEAT: printf("KW_REPEAT\n"); break;
+		case KW_UNTIL: printf("KW_UNTIL\n"); break;
 		case KW_PROGRAM: printf("KW_PROGRAM\n"); break;
+		case KW_STRING: printf("KW_STRING\n"); break;
 		case KW_CONST: printf("KW_CONST\n"); break;
 		case KW_TYPE: printf("KW_TYPE\n"); break;
 		case KW_VAR: printf("KW_VAR\n"); break;
