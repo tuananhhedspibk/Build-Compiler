@@ -1,5 +1,5 @@
-PROGRAM  EXAMPLE4;  (* Example 4 *)
-CONST MAX = 10;
+PROGRAM  EXAMPLE8;  (* Example 8 *)
+CONST MAX = 10; PATTERN = "ABC";
 TYPE T = INTEGER;
 VAR  A : ARRAY(. 10 .) OF T;
      N : INTEGER;
@@ -27,12 +27,17 @@ END;
 FUNCTION SUM : INTEGER;
 VAR I: INTEGER;
     S : INTEGER;
+    X : STRING;
 BEGIN
-    S := 0;
-    I := 1;
+    S,I := 1,2;
+    X := "ABC";
+    CALL WRITES("ABC");
+    REPEAT
+      I := I + 1
+    UNTIL I = 10;
     WHILE I <= N DO
      BEGIN
-       S := S + A(.I.);
+       S := S + * A(.I.);
        I := I + 1;
      END
 END;
@@ -46,4 +51,4 @@ BEGIN
        CALL WRITEI(SUM);
        CH := READC;
      END
-END.  (* Example 4 *)
+END.  (* Example 8 *)

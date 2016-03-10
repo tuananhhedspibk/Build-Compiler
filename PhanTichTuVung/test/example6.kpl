@@ -1,4 +1,4 @@
-PROGRAM  EXAMPLE3;  (* TOWER OF HANOI *)
+PROGRAM  EXAMPLE6;  (* TOWER OF HANOI *)
 VAR  I:INTEGER;  
      N:INTEGER;  
      P:INTEGER;  
@@ -14,7 +14,7 @@ BEGIN
       CALL  WRITELN;
       CALL  WRITEI(I);  
       CALL  WRITEI(N);
-      CALL  WRITEI(S);  
+      CALL  WRITEI(S)  
       CALL  WRITEI(Z);
       CALL  HANOI(N-1,6-S-Z,Z)
     END
@@ -24,7 +24,7 @@ BEGIN
   FOR  N := 1  TO  4  DO  
     BEGIN
       FOR  I:=1  TO  4  DO  
-        CALL  WRITEC('abc');
+        CALL  WRITEC(' ');
       CALL  READC(C);  
       CALL  WRITEC(C)
     END;
@@ -36,4 +36,4 @@ BEGIN
       CALL  HANOI(N,P,Q);  
       CALL  WRITELN  
     END
-END.  (* TOWER OF HANOI 
+END.  (* TOWER OF HANOI *)
