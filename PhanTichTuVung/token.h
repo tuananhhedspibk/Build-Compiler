@@ -7,7 +7,7 @@
 #ifndef __TOKEN_H__
 #define __TOKEN_H__
 
-#define MAX_IDENT_LEN 100
+#define MAX_IDENT_LEN 15
 #define KEYWORDS_COUNT 23
 
 typedef enum {
@@ -18,12 +18,12 @@ typedef enum {
 	KW_FUNCTION, KW_PROCEDURE,
 	KW_BEGIN, KW_END, KW_CALL,
 	KW_IF, KW_THEN, KW_ELSE,
-	KW_WHILE, KW_DO, KW_FOR, KW_TO, KW_STRING, KW_REPEAT, KW_UNTIL,
+	KW_WHILE, KW_DO, KW_FOR, KW_TO, KW_REPEAT, KW_UNTIL, KW_STRING,
 
 	SB_SEMICOLON, SB_COLON, SB_PERIOD, SB_COMMA,
 	SB_ASSIGN, SB_EQ, SB_NEQ, SB_LT, SB_LE, SB_GT, SB_GE,
 	SB_PLUS, SB_MINUS, SB_TIMES, SB_SLASH,
-	SB_LPAR, SB_RPAR, SB_LSEL, SB_RSEL
+	SB_LPAR, SB_RPAR, SB_LSEL, SB_RSEL, SB_DQ
 } TokenType; 
 
 typedef struct {
@@ -35,6 +35,7 @@ typedef struct {
 
 TokenType checkKeyword(char *string);
 Token* makeToken(TokenType tokenType, int lineNo, int colNo);
+char *tokenToString(TokenType tokenType);
 
 
 #endif
