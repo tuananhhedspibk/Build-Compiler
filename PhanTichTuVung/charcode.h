@@ -8,25 +8,26 @@
 #define __CHARCODE_H__
 
 typedef enum {
-	CHAR_SPACE,// dau cach
-	CHAR_LETTER, // chu cai
-	CHAR_DIGIT, // 0 - 9
-	CHAR_PLUS, // +
-	CHAR_MINUS, // -
-	CHAR_TIMES, // *
-	CHAR_SLASH, // /
-	CHAR_LT,  // <
-	CHAR_GT,  // >
-	CHAR_EXCLAIMATION, // !
-	CHAR_EQ, // =
-	CHAR_COMMA, // ,
-	CHAR_PERIOD, // .
-	CHAR_COLON, // :
-	CHAR_SEMICOLON, // ;
-	CHAR_SINGLEQUOTE, // '
-	CHAR_LPAR, // (
-	CHAR_RPAR, // )
-	CHAR_UNKNOWN // ki tu ngoai bang chu cai
+	CHAR_SPACE,
+	CHAR_LETTER,
+	CHAR_DIGIT,
+	CHAR_PLUS,
+	CHAR_MINUS,
+	CHAR_TIMES,
+	CHAR_SLASH,
+	CHAR_LT,
+	CHAR_GT,
+	CHAR_EXCLAIMATION,
+	CHAR_EQ,
+	CHAR_COMMA,
+	CHAR_PERIOD,
+	CHAR_COLON,
+	CHAR_SEMICOLON,
+	CHAR_SINGLEQUOTE,
+	CHAR_DOUBLEQUOTE, // "
+	CHAR_LPAR,
+	CHAR_RPAR,
+	CHAR_UNKNOWN
 } CharCode;
 
 #endif
