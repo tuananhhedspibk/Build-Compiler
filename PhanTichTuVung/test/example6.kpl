@@ -1,39 +1,27 @@
-PROGRAM  EXAMPLE6;  (* TOWER OF HANOI *)
-VAR  I:INTEGER;  
-     N:INTEGER;  
-     P:INTEGER;  
-     Q:INTEGER;
-     C:CHAR;
+Program Example6;
+   Const c1 = 10;
+  	 c2 = 'a';
+   Type t1 = array(. 10 .) of integer;
+   Var v1 : Integer;
+       v2 : Array(. 10 .) of t1;
 
-PROCEDURE  HANOI(N:INTEGER;  S:INTEGER;  Z:INTEGER);
-BEGIN
-  IF  N != 0  THEN
-    BEGIN
-      CALL  HANOI(N-1,S,6-S-Z);
-      I:=I+1;  
-      CALL  WRITELN;
-      CALL  WRITEI(I);  
-      CALL  WRITEI(N);
-      CALL  WRITEI(S)  
-      CALL  WRITEI(Z);
-      CALL  HANOI(N-1,6-S-Z,Z)
-    END
-END;  (*END OF HANOI*)
+   Function F(p1 : Integer; Var p2 : char) : Integer;
+     Begin
+       f := c1;
+     End;
 
-BEGIN
-  FOR  N := 1  TO  4  DO  
-    BEGIN
-      FOR  I:=1  TO  4  DO  
-        CALL  WRITEC(' ');
-      CALL  READC(C);  
-      CALL  WRITEC(C)
-    END;
-  P:=1;  
-  Q:=2;
-  FOR  N:=2  TO  4  DO
-    BEGIN  
-      I:=0;  
-      CALL  HANOI(N,P,Q);  
-      CALL  WRITELN  
-    END
-END.  (* TOWER OF HANOI *)
+   procedure p(v1 : integer);
+     const c1 = 'a';
+           c3 = 10;
+     type t1 = integer;
+          t2 = array(. 10 .) of t1;
+     var v2 : t2;
+         v3 : char;
+     begin
+	v3 := 'a';
+        v1 := f(c3,v3);
+     end;
+
+Begin
+     call p(c1);
+End.

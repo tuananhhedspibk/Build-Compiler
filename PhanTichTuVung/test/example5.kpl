@@ -1,17 +1,10 @@
-Program Example5; (* Factorial *)
-   
-Var n : Integer;
-    i 1 : char;
-
-Function F(n : Integer) : Integer;
-  Begin
-    If n = 0 Then F := 1 Else F := N * F (N - 1);
-  End;
-
+Program Example5; (* Example 1 *)
+const c = 1;
+type t = char;
+function f(i : integer):char;
+const b = c;
+type a = array(.5.) of t;
+begin
+end;
 Begin
-  For n := 1 To 7 Do
-    Begin
-      Call WriteLn;
-      Call WriteI( F(i));
-    End;
-End. (* Factorial *)
+End. (* Example 1 *)

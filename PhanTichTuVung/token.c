@@ -31,15 +31,12 @@ struct {
 	{"WHILE", KW_WHILE},
 	{"DO", KW_DO},
 	{"FOR", KW_FOR},
-	{"TO", KW_TO},
-	{"STRING", KW_STRING},
-	{"REPEAT", KW_REPEAT},
-	{"UNTIL", KW_UNTIL}
+	{"TO", KW_TO}
 };
 
 int keywordEq(char *kw, char *string) {
 	while ((*kw != '\0') && (*string != '\0')) {
-		if (*kw != toupper(*string)) break;
+		if (*kw != *string) break;
 		kw ++; string ++;
 	}
 	return ((*kw == '\0') && (*string == '\0'));
