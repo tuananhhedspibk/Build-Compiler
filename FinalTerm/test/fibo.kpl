@@ -1,0 +1,15 @@
+Program Fibo;
+var n : integer;
+    i : integer;
+Function Fibonaci(n : integer) : Integer;
+Begin
+    if n = 0 then Fibonaci := 0;
+    if n = 1 then Fibonaci := 1;
+    if n > 1 then Fibonaci := Fibonaci(n - 1) + Fibonaci(n - 2);
+End;
+
+Begin
+   n := readi;
+   i := Fibonaci(n);
+   call writei(i);
+End.
